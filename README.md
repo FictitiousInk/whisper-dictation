@@ -9,7 +9,11 @@ brew install portaudio
 ```
 
 ## Permissions
-The app requires accessibility permissions to register global hotkeys and permission to access your microphone for speech recognition.
+The app requires accessibility permissions to register global hotkeys and permission to access your microphone for speech recognition:
+
+1. Go to System Settings > Privacy & Security > Accessibility and add Terminal.app
+2. Go to System Settings > Privacy & Security > Input Monitoring and add Terminal.app
+3. During Installation you will also receive a request to allow access to the Microphone, enable this to add it to System Settings > Privacy & Security > Microphone
 
 ## Installation
 Clone the repository:
@@ -19,7 +23,7 @@ git clone https://github.com/foges/whisper-dictation.git
 cd whisper-dictation
 ```
 
-Create a virtual environment:
+\[Optional] Create a virtual environment:
 
 ```bash
 python3 -m venv venv
@@ -38,12 +42,23 @@ Run the application:
 ```bash
 python whisper-dictation.py
 ```
+To start dictation, use the key combination <kbd>option</kbd> + <kbd>command</kbd> (on macOS) or <kbd>Ctrl</kbd> + <kbd>Alt</kbd> on other platforms.
 
-By default, the app uses the "base" Whisper ASR model and the key combination to toggle dictation is cmd+option on macOS and ctrl+alt on other platforms. You can change the model and the key combination using command-line arguments.  Note that models other than `tiny` and `base` can be slow to transcribe and are not recommended unless you're using a powerful computer, ideally one with a CUDA-enabled GPU. For example:
+You can change the key combination and which model is used using command-line arguments (see below). By default, the app uses the "base" Whisper ASR model. Note that models other than `tiny` and `base` can be slow to transcribe and are not recommended unless you're using a powerful computer, ideally one with a CUDA-enabled GPU. 
 
+### Command-line arguments:
+```
+[-h]
+[-m {tiny,tiny.en,base,base.en,small,small.en,medium,medium.en,large}]
+[-k KEY_COMBINATION] # Type this out as a string, with `+` between keys, e.g. **cmd_l+shift**. Note the difference between cmd_l and cmd_r. 
+[-l LANGUAGE]        # Two-letter language codes. For multiple languages, separate with a comma, no spaces.
+[-t MAX_TIME]        # An integer denoting a maximum number of seconds to record for.
+```
+
+Example:
 
 ```bash
-python whisper-dictation.py -m large -k cmd_r+shift -l en
+python whisper-dictation.py -m large -k cmd_r+shift -l en,no
 ```
 
 The models are multilingual, and you can specify a two-letter language code (e.g., "no" for Norwegian) with the `-l` or `--language` option. Specifying the language can improve recognition accuracy, especially for smaller model sizes.
