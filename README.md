@@ -5,7 +5,7 @@ Multilingual dictation app based on the powerful OpenAI Whisper ASR model(s) to 
 The PortAudio library is required for this app to work. You can install it on macOS using the following command:
 
 ```bash
-brew install portaudio
+brew install portaudio 
 ```
 
 ## Permissions
